@@ -9,13 +9,13 @@ const PostSchema = new Schema(
             data: Buffer,
             contentType: String
         },
-        likes: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
+        likes: [{type: Schema.ObjectId, ref: 'User'}],
         comments: [{
             text: String,
             created: { type: Date, default: Date.now },
-            postedBy: { type: mongoose.Schema.ObjectId, ref: 'User'}
+            postedBy: { type: Schema.ObjectId, ref: 'User'}
         }],
-        postedBy: {type: mongoose.Schema.ObjectId, ref: 'User'},
+        postedBy: {type: Schema.ObjectId, ref: 'User'},
     },
     {
         timestamps: true,

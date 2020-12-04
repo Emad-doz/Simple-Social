@@ -1,17 +1,17 @@
 const { Router } = require('express');
 const router     = Router();
-const auth       = require('../controller/auth.controller');
+const authControl  = require('../controller/auth.controller');
 
 router.route('/signup')
-    .post(auth.signup)
+    .post(authControl.signup)
 
 router.route('/login')
-    .post(auth.login)
+    .post(authControl.login)
 
 router.route('/logout')
-    .post(auth.logout)
+    .post(authControl.logout)
 
 router.route('/loggedin')
-    .get(auth.loggedin)
+    .get(authControl.loggedin)
 
 module.exports = router;
