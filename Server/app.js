@@ -10,6 +10,7 @@ const passport     = require('passport');
 const cors         = require('cors');
 const session      = require('express-session');
 
+
 //DB & Passport Configuration
 require("./configs/db.config");
 require("./configs/passport.config");

@@ -7,9 +7,9 @@ router.route('/users')
       .get(userControl.list)
 
 router.route('/users/:userId')
-      .get(authControl.loggedin, userControl.read)
-      .put(authControl.loggedin, userControl.update)
-      .delete(authControl.loggedin, userControl.remove)
+      .get(authControl.requireSignin, userControl.read)
+      .put(authControl.requireSignin, authControl.hasAuthorization, userControl.update)
+      .delete(authControl.requireSignin, authControl.hasAuthorization, userControl.remove)
 
 router.route('/users/photo/:userId')
       .get(userControl.photo, userControl.defaultPhoto)
@@ -17,12 +17,12 @@ router.route('/users/defaultphoto')
       .get(userControl.defaultPhoto)
 
 router.route('/users/findpeople/:userId')
-      .get(authControl.loggedin, userControl.findPeople)
+      .get(authControl.requireSignin, userControl.findPeople)
 
 router.route('/users/follow')
-      .put(authControl.loggedin, userControl.addFollowing, userControl.addFollower)
+      .put(authControl.requireSignin, userControl.addFollowing, userControl.addFollower)
 router.route('/users/unfollow')
-      .put(authControl.loggedin, authControl.loggedin, userControl.removeFollowing, userControl.removeFollower)
+      .put(authControl.requireSignin, userControl.removeFollowing, userControl.removeFollower)
 
 router.param('userId', userControl.userByID)
 

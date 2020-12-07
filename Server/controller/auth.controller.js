@@ -1,12 +1,15 @@
-const passport   = require('passport');
+require('dotenv').config()
 const bcrypt     = require('bcrypt');
 const User       = require('../models/user.model');
+const jwt        = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
+const passport = require("passport");
 
 const signup = (req, res) => {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password ) {
-      res.status(400).json({ message: "Provide username and email and password" });
+      res.status(400).json({ message: "Provide name and email and password" });
       return;
     };
   
@@ -55,46 +58,22 @@ const signup = (req, res) => {
     });
 };
 
-const login = (req, res, next) => {
+const login = async (req, res) => {
+  try {
     passport.authenticate("local", (err, theUser, failureDetails) => {
-        if (err) {
-          res
-            .status(500)
-            .json({ message: "Something went wrong authenticating user" });
-          return;
-        };
-    
-        if (!theUser) {
-          res.status(401).json(failureDetails);
-          return;
-        };
- 
-        req.login(theUser, (err) => {
-          if (err) {
-            res.status(500).json({ message: "Session save went bad." });
-            return;
-          };
-          res.status(200).json(theUser);
-        });
-      })(req, res, next);
-};
-
-const logout = (req, res) => {
-    req.logout();
-    res.status(200).json({ message: "Log out success!" });
-};
-
-const loggedin = (req, res) => {
-    if (req.isAuthenticated()) {
-        res.status(200).json(req.user);
+      if (err) {
+        res
+          .status(500)
+          .json({ message: "Something went wrong authenticating user" });
         return;
-    };
-    res.status(403).json({ message: "Unauthorized" });
-};
+      }
+  
+      if (!theUser) {
+        res.status(401).json(failureDetails);
+        return;
+      }
 
-module.exports = {signup , login , logout , loggedin}
-
-/*const token = jwt.sign({
+    const token = jwt.sign({
       _id: user._id
     }, config.jwtSecret)
 
@@ -105,7 +84,7 @@ module.exports = {signup , login , logout , loggedin}
     return res.json({
       token,
       user: {_id: user._id, name: user.name, email: user.email}
-    })
+    })})
   } catch (err) {
     console.log(err)
     return res.status('401').json({
@@ -115,17 +94,15 @@ module.exports = {signup , login , logout , loggedin}
   }
 }
 
-const signout = (req, res) => {
+const logout = (req, res) => {
   res.clearCookie("t")
   return res.status('200').json({
     message: "signed out"
   })
 }
 
-const requireSignin = expressJwt({
-  secret: config.jwtSecret,
-  userProperty: 'auth'
-})
+ 
+const requireSignin =  expressJwt({ secret:  process.env.JWT_SECRET, algorithms: ['RS256']});
 
 const hasAuthorization = (req, res, next) => {
   const authorized = req.profile && req.auth && req.profile._id == req.auth._id
@@ -135,4 +112,6 @@ const hasAuthorization = (req, res, next) => {
     })
   }
   next()
-}*/
+}
+
+module.exports = {signup , login , logout , requireSignin, hasAuthorization}

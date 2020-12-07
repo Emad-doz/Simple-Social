@@ -31,6 +31,21 @@ const listNewsFeed = async (req, res) => {
     )}
 }
 
+const listByUser = async (req, res) => {
+  try{
+    let posts = await Post.find({postedBy: req.profile._id})
+                          .populate('comments.postedBy', '_id name')
+                          .populate('postedBy', '_id name')
+                          .sort('-created')
+                          .exec()
+    res.json(posts)
+  }catch(err){
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
+
 const like = async (req, res) => {
     try{
       let result = await Post.findByIdAndUpdate(req.body.postId, {$push: {likes: req.body.userId}}, {new: true})
@@ -110,5 +125,5 @@ const remove = async (req, res) => {
 module.exports = {
     create ,photo, listNewsFeed, 
     like, unlike, comment , uncomment,
-    postByID, isPoster, remove
+    postByID, isPoster, remove , listByUser
 }

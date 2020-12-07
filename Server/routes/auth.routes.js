@@ -11,7 +11,4 @@ router.route('/login')
 router.route('/logout')
     .post(authControl.logout)
 
-router.route('/loggedin')
-    .get(authControl.loggedin)
-
 module.exports = router;

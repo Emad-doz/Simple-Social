@@ -79,7 +79,7 @@ const remove = (req,res) => {
 //!-- need to work more in this part //
 const findPeople = async (req, res) => {
     let following = req.following
-    //following.push(req._id)
+    following.push(req._id)
     try {
       let users = await User.find({ _id: { $nin : following } }).select('name')
       res.json(users)
