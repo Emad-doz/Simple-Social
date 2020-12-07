@@ -66,7 +66,7 @@ const Signup = () =>{
       email: values.email || undefined,
       password: values.password || undefined
     }
-    service.signup(user)
+    service.signup(user.name , user.email, user.password)
     .then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error})

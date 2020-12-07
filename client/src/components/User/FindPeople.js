@@ -56,7 +56,7 @@ function FindPeople() {
     useEffect(() => {
       const abortController = new AbortController()
       const signal = abortController.signal
-  
+        console.log(jwt)
       service.findPeople({
         userId: jwt.user._id
       }, {

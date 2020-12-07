@@ -20,9 +20,9 @@ class PostService {
         .then((response) => response);
     }
 
-    listNewsFeed = (id) => {
+    listNewsFeed = ({userId}) => {
       return this.service
-        .get(`api/posts/feed/${id}`)
+        .get(`api/posts/feed/${userId}`)
         .then((response) => response);
     }
     

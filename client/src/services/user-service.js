@@ -14,7 +14,7 @@ class UserService {
           .then((response) => response.data);
     }
 
-    read = (id) => {
+    read = ({id}) => {
         return this.service
           .get(`api/users/${id}`) 
     }
@@ -29,9 +29,9 @@ class UserService {
           .delete(`api/users/${id}`)
     }
 
-    findPeople = (id) =>{
+    findPeople = ({userId}) =>{
         return this.service
-          .get(`api/users/find/${id}`)
+          .get(`api/users/findpeople/${userId}`)
     }
 
     follow = () => {

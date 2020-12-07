@@ -5,7 +5,7 @@ import DeleteUser from './DeleteUser'
 import FollowProfileButton from './FollowProfileButton'
 import ProfileTabs from './ProfileTabs'
 import auth from '../Auth/auth-helper'
-import PostService from '../../services/post-service'
+import UserService from '../../services/user-service'
 
 import {makeStyles} from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
@@ -40,7 +40,8 @@ const useStyles = makeStyles(theme => ({
     }
   }))
   
-const service = new PostService();
+const service = new UserService();
+
 
 function Profile({ match }) {
     const classes = useStyles()

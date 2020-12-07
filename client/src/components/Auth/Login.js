@@ -50,11 +50,11 @@ function Login(props) {
 
   const clickSubmit = () => {
     const user = {
-      email: values.email,
+      username: values.email,
       password: values.password
     }
 
-    service.login(user).then((data) => {
+    service.login(user.username, user.password).then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error})
       } else {

@@ -14,7 +14,7 @@ router.route('/posts/by/:userId')
       .get(authControl.requireSignin, postControl.listByUser)
 
 router.route('/posts/feed/:userId')
-      .get(authControl.requireSignin, postControl.listNewsFeed)
+      .get(postControl.listNewsFeed)
 
 router.route('/posts/like')
       .put(authControl.requireSignin, postControl.like)

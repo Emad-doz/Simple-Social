@@ -75,11 +75,9 @@ const remove = (req,res) => {
       res.status(500).json(error);
     });
 }
-
-//!-- need to work more in this part //
 const findPeople = async (req, res) => {
     let following = req.following
-    following.push(req._id)
+  
     try {
       let users = await User.find({ _id: { $nin : following } }).select('name')
       res.json(users)

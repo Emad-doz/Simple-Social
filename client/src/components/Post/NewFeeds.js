@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import auth from '../Auth/auth-helper'
 import PostList from './PostList'
-import NewPost from './NewPost'
+import NewPost from './NewPosts'
 import PostService from '../../services/post-service'
 
 import {makeStyles} from '@material-ui/core/styles'
@@ -68,7 +68,7 @@ function NewFeeds () {
     return (
       <Card className={classes.card}>
         <Typography type="title" className={classes.title}>
-          Newsfeed
+          Newfeeds
         </Typography>
         <Divider/>
         <NewPost addUpdate={addPost}/>

@@ -1,9 +1,8 @@
 require('dotenv').config()
 const bcrypt     = require('bcrypt');
 const User       = require('../models/user.model');
-const jwt        = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
-const passport = require("passport");
+
 
 const signup = (req, res) => {
     const { name, email, password } = req.body;
@@ -58,42 +57,6 @@ const signup = (req, res) => {
     });
 };
 
-const login = async (req, res) => {
-  try {
-    passport.authenticate("local", (err, theUser, failureDetails) => {
-      if (err) {
-        res
-          .status(500)
-          .json({ message: "Something went wrong authenticating user" });
-        return;
-      }
-  
-      if (!theUser) {
-        res.status(401).json(failureDetails);
-        return;
-      }
-
-    const token = jwt.sign({
-      _id: user._id
-    }, config.jwtSecret)
-
-    res.cookie("t", token, {
-      expire: new Date() + 9999
-    })
-
-    return res.json({
-      token,
-      user: {_id: user._id, name: user.name, email: user.email}
-    })})
-  } catch (err) {
-    console.log(err)
-    return res.status('401').json({
-      error: "Could not sign in"
-    })
-
-  }
-}
-
 const logout = (req, res) => {
   res.clearCookie("t")
   return res.status('200').json({
@@ -101,7 +64,6 @@ const logout = (req, res) => {
   })
 }
 
- 
 const requireSignin =  expressJwt({ secret:  process.env.JWT_SECRET, algorithms: ['RS256']});
 
 const hasAuthorization = (req, res, next) => {
@@ -114,4 +76,4 @@ const hasAuthorization = (req, res, next) => {
   next()
 }
 
-module.exports = {signup , login , logout , requireSignin, hasAuthorization}
+module.exports = {signup , logout , requireSignin, hasAuthorization}

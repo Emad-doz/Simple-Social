@@ -17,7 +17,7 @@ router.route('/users/defaultphoto')
       .get(userControl.defaultPhoto)
 
 router.route('/users/findpeople/:userId')
-      .get(authControl.requireSignin, userControl.findPeople)
+      .get( userControl.findPeople)
 
 router.route('/users/follow')
       .put(authControl.requireSignin, userControl.addFollowing, userControl.addFollower)
