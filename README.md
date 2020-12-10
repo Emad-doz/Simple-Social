@@ -3,9 +3,9 @@ This Project is the final project for Iron Hack web development course
 
 What you need to run this code:
 
-1- Node (8.11.1)
-2- NPM (5.8.0)
-3- MongoDB (3.6.3)
+1- Node
+2- NPM
+3- MongoDB
 
 
 How to run this code:
